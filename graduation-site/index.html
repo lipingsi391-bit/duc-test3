@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DUC毕业典礼</title>
+  <style>
+    :root {
+      --primary: #fec612;
+      --primary-deep: #cf9800;
+      --primary-night: #7a5800;
+      --gold-soft: #ffe38a;
+      --gold-cream: #fff5cf;
+      --accent: #6b2f1f;
+      --accent-deep: #4b1d12;
+      --accent-soft: #b7835a;
+      --ink: #3d2616;
+      --muted: #7b634f;
+      --paper: #fffdf7;
+      --panel: rgba(255, 255, 255, 0.9);
+      --line: rgba(212, 152, 0, 0.18);
+      --shadow: 0 24px 60px rgba(120, 88, 0, 0.14);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(107, 47, 31, 0.12), transparent 28%),
+        radial-gradient(circle at 88% 14%, rgba(254, 198, 18, 0.24), transparent 24%),
+        linear-gradient(180deg, #fffaf0 0%, #fffdf7 44%, #fff8ec 100%);
+    }
+
+    .shell {
+      width: min(430px, calc(100% - 20px));
+      margin: 0 auto;
+      padding: 14px 0 28px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 22px 20px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.26), transparent 20%),
+        radial-gradient(circle at 84% 18%, rgba(107, 47, 31, 0.18), transparent 24%),
+        linear-gradient(145deg, #fff2bf 0%, #fec612 32%, #e2a400 68%, #b97800 100%);
+      box-shadow: var(--shadow);
+      color: #4f3b00;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 48%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(107, 47, 31, 0.2), rgba(183, 131, 90, 0.08));
+      filter: blur(16px);
+    }
+
+    .hero-frame {
+      position: absolute;
+      inset: 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 245, 207, 0.52);
+      box-shadow: inset 0 0 0 1px rgba(168, 117, 0, 0.14);
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(84, 49, 15, 0.95);
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      max-width: 320px;
+      font-size: 32px;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subcopy {
+      margin-top: 12px;
+      display: grid;
+      gap: 4px;
+      color: rgba(92, 67, 0, 0.92);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .hero-subcopy strong {
+      font-size: 16px;
+      color: #7a5800;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255, 248, 223, 0.9);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+      position: sticky;
+      bottom: 10px;
+      z-index: 4;
+      padding: 10px;
+      border-radius: 22px;
+      background: rgba(255, 252, 244, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 24px rgba(20, 50, 59, 0.08);
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary-btn {
+      padding: 15px 22px;
+      background: linear-gradient(135deg, #fff2b3 0%, #fec612 46%, #d89e00 100%);
+      color: #694d00;
+      border: 1px solid rgba(124, 90, 0, 0.1);
+      font-weight: 800;
+      box-shadow: 0 16px 30px rgba(212, 152, 0, 0.22);
+      grid-column: 1 / -1;
+    }
+
+    .secondary-btn {
+      padding: 14px 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 247, 226, 0.94));
+      color: #7a5c00;
+      font-weight: 700;
+      border: 1px solid rgba(212, 152, 0, 0.12);
+    }
+
+    .ghost-btn {
+      padding: 14px 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 247, 226, 0.94));
+      color: #7a5c00;
+      font-weight: 700;
+      border: 1px solid rgba(212, 152, 0, 0.12);
+    }
+
+    .output {
+      padding: 18px;
+    }
+
+    .output-head h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .output-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 239, 173, 0.75), rgba(254, 198, 18, 0.18));
+      color: #7a5800;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .title-panel {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(255, 245, 207, 0.96), rgba(255, 251, 240, 0.94)),
+        linear-gradient(90deg, rgba(254, 198, 18, 0.1), rgba(107, 47, 31, 0.05));
+      border: 1px solid rgba(212, 152, 0, 0.16);
+      box-shadow: inset 0 0 0 1px rgba(255, 247, 223, 0.88);
+    }
+
+    .title-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(128, 94, 0, 0.8);
+    }
+
+    .title-text {
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: #7a5c00;
+    }
+
+    .preview {
+      position: relative;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(254, 198, 18, 0.14), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(107, 47, 31, 0.05), transparent 24%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(255, 251, 240, 0.96));
+      border: 1px solid rgba(212, 152, 0, 0.14);
+      box-shadow: inset 0 0 0 1px rgba(255, 246, 214, 0.85);
+      min-height: 440px;
+    }
+
+    .preview::before {
+      content: "小红书文案预览";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(158, 120, 0, 0.48);
+    }
+
+    .content-block {
+      white-space: pre-wrap;
+      line-height: 1.8;
+      font-size: 15px;
+      color: var(--ink);
+      padding-top: 16px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (min-width: 760px) {
+      body {
+        padding: 20px 0;
+      }
+
+      .shell {
+        width: min(460px, 100%);
+      }
+
+      .hero,
+      .controls,
+      .output {
+        border-radius: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-frame"></div>
+      <span class="hero-badge">Dominican University of California</span>
+      <h1>美国加州多明尼克大学毕业典礼</h1>
+      <div class="hero-subcopy">
+        <strong>Begin Here, Lead Beyond</strong>
+        <span>由此启程，向更高处引领</span>
+      </div>
+    </section>
+
+    <section class="layout">
+      <section class="panel output">
+        <div class="action-row">
+          <button class="primary-btn" id="generateBtn">我的专属毕业笔记</button>
+          <button class="secondary-btn" id="copyBtn">复制整篇文案</button>
+          <button class="ghost-btn" id="refreshBtn">换一版灵感</button>
+        </div>
+        <div class="output-head">
+          <div>
+            <h2>文案结果</h2>
+            <p class="section-copy">点击按钮后生成 300 字以内的毕业笔记风格文案，适合直接用于小红书发布。</p>
+          </div>
+          <span class="pill" id="statusPill"></span>
+        </div>
+
+        <div class="title-panel">
+          <span class="title-label">标题生成</span>
+          <div class="title-text" id="titleBlock"></div>
+        </div>
+
+        <div class="preview">
+          <div class="content-block" id="contentBlock"></div>
+        </div>
+        <p class="footer-note">毕业不是结束，而是把学习、行业判断和长期成长真正带进下一段路。</p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const contentBlock = document.getElementById("contentBlock");
+    const titleBlock = document.getElementById("titleBlock");
+    const statusPill = document.getElementById("statusPill");
+
+    titleBlock.textContent = "";
+    contentBlock.textContent = "";
+    async function generateCopy() {
+      statusPill.textContent = "正在调用 API 生成";
+      titleBlock.textContent = "生成中...";
+      contentBlock.textContent = "正在为你生成新的标题和文案，请稍等。";
+
+      try {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ trigger: Date.now() })
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.ok) {
+          const message = [payload.error, payload.detail].filter(Boolean).join("：") || "生成失败";
+          throw new Error(message);
+        }
+
+        titleBlock.textContent = payload.result.title;
+        contentBlock.textContent = payload.result.body + "\n\n" + payload.result.tags;
+        statusPill.textContent = "已生成新版本，可直接复制";
+      } catch (error) {
+        titleBlock.textContent = "暂时无法生成";
+        contentBlock.textContent = "接口调用失败：" + error.message;
+        statusPill.textContent = "API 连接失败";
+      }
+    }
+
+    async function copyContent() {
+      const text = (titleBlock.textContent + "\n\n" + contentBlock.textContent).trim();
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        statusPill.textContent = "文案已复制到剪贴板";
+      } catch (error) {
+        statusPill.textContent = "复制失败，请手动选择文案";
+      }
+    }
+
+    document.getElementById("generateBtn").addEventListener("click", generateCopy);
+    document.getElementById("refreshBtn").addEventListener("click", generateCopy);
+    document.getElementById("copyBtn").addEventListener("click", copyContent);
+  </script>
+</body>
+</html>

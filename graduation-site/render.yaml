@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: duc-graduation-generator
+    runtime: python
+    plan: free
+    buildCommand: ""
+    startCommand: python3 server.py
+    envVars:
+      - key: GRAD_MODEL
+        value: doubao-seed-2-0-lite-260215
