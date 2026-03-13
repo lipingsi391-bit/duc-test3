@@ -90,7 +90,6 @@ ANGLE_POOL = {
     "对新学期生活的憧憬与目标": "写对新学期、学习和职业目标的期待。",
 }
 
-
 def extract_text(response_json):
     if response_json.get("output_text"):
         return response_json["output_text"]
