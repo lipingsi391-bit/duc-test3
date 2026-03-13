@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CDU 开学典礼小红书文案生成器</title>
+  <title>DUC开学典礼</title>
   <style>
     :root {
       --primary: #0e8dab;
@@ -309,16 +309,16 @@
     <section class="layout">
       <section class="panel output">
         <div class="action-row">
-          <button class="primary-btn" id="generateBtn">同频未来</button>
+          <button class="primary-btn" id="generateBtn">我的专属开学笔记</button>
           <button class="secondary-btn" id="copyBtn">复制整篇文案</button>
           <button class="ghost-btn" id="refreshBtn">换一版灵感</button>
         </div>
         <div class="output-head">
           <div>
             <h2>文案结果</h2>
-            <p class="section-copy">系统会自动拼接标题、正文和标签，生成适合小红书发布的完整版本。</p>
+            <p class="section-copy">点击按钮后生成 300 字以内的开学笔记风格文案，适合直接用于小红书发布。</p>
           </div>
-          <span class="pill" id="statusPill">默认模板已就绪</span>
+          <span class="pill" id="statusPill">等待生成</span>
         </div>
 
         <div class="title-panel">
@@ -329,7 +329,7 @@
         <div class="preview">
           <div class="content-block" id="contentBlock"></div>
         </div>
-        <p class="footer-note">建议在正式发布前再补充具体时间、现场照片或视频亮点，转化效果会更好。</p>
+        <p class="footer-note">欢迎加入加州多明尼克大学在线硕士项目，与全球视野同行，与更好的自己相遇。</p>
       </section>
     </section>
   </main>
@@ -338,6 +338,9 @@
     const contentBlock = document.getElementById("contentBlock");
     const titleBlock = document.getElementById("titleBlock");
     const statusPill = document.getElementById("statusPill");
+
+    titleBlock.textContent = "";
+    contentBlock.textContent = "";
 
     async function generateCopy() {
       statusPill.textContent = "正在调用 API 生成";
@@ -384,8 +387,6 @@
     document.getElementById("generateBtn").addEventListener("click", generateCopy);
     document.getElementById("refreshBtn").addEventListener("click", generateCopy);
     document.getElementById("copyBtn").addEventListener("click", copyContent);
-
-    generateCopy();
   </script>
 </body>
 </html>
