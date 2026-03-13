@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CDU 开学典礼小红书文案生成器</title>
+  <style>
+    :root {
+      --primary: #0e8dab;
+      --primary-deep: #086e86;
+      --primary-night: #064d62;
+      --accent: #fec612;
+      --accent-soft: #ffe27a;
+      --ink: #14323b;
+      --muted: #5f7a82;
+      --paper: #fffdf8;
+      --panel: rgba(255, 255, 255, 0.88);
+      --line: rgba(14, 141, 171, 0.18);
+      --shadow: 0 24px 60px rgba(9, 74, 90, 0.18);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(254, 198, 18, 0.26), transparent 28%),
+        radial-gradient(circle at 88% 16%, rgba(14, 141, 171, 0.24), transparent 24%),
+        linear-gradient(180deg, #f2fbff 0%, #fbfeff 40%, #fff9e8 100%);
+    }
+
+    .shell {
+      width: min(430px, calc(100% - 20px));
+      margin: 0 auto;
+      padding: 14px 0 28px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 22px 20px;
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at top right, rgba(254, 198, 18, 0.36), transparent 28%),
+        linear-gradient(160deg, #0f9abb 0%, #0b7f9b 42%, #064d62 100%);
+      box-shadow: var(--shadow);
+      color: #fff;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 36%),
+        radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.18), transparent 18%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(254, 198, 18, 0.28), rgba(255, 226, 122, 0.08));
+      filter: blur(12px);
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 247, 207, 0.95);
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      max-width: 320px;
+      font-size: 32px;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subcopy {
+      margin-top: 12px;
+      display: grid;
+      gap: 4px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .hero-subcopy strong {
+      font-size: 16px;
+      color: #fff6d0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-copy {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+      position: sticky;
+      bottom: 10px;
+      z-index: 4;
+      padding: 10px;
+      border-radius: 22px;
+      background: rgba(255, 253, 248, 0.88);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 24px rgba(20, 50, 59, 0.08);
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary-btn {
+      padding: 15px 22px;
+      background: linear-gradient(135deg, #18a4c1 0%, #0e8dab 58%, #fec612 100%);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 16px 30px rgba(14, 141, 171, 0.28);
+      grid-column: 1 / -1;
+    }
+
+    .secondary-btn {
+      padding: 14px 20px;
+      background: linear-gradient(180deg, rgba(14, 141, 171, 0.12), rgba(14, 141, 171, 0.06));
+      color: var(--primary-deep);
+      font-weight: 700;
+    }
+
+    .ghost-btn {
+      padding: 14px 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 249, 228, 0.92));
+      color: var(--ink);
+      font-weight: 700;
+      border: 1px solid rgba(20, 50, 59, 0.08);
+    }
+
+    .output {
+      padding: 18px;
+    }
+
+    .output-head h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .output-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(14, 141, 171, 0.1), rgba(254, 198, 18, 0.12));
+      color: var(--primary-deep);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .title-panel {
+      margin-top: 14px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(14, 141, 171, 0.12), rgba(254, 198, 18, 0.14));
+      border: 1px solid rgba(14, 141, 171, 0.12);
+    }
+
+    .title-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(8, 110, 134, 0.8);
+    }
+
+    .title-text {
+      font-size: 22px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: var(--primary-night);
+    }
+
+    .preview {
+      position: relative;
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(254, 198, 18, 0.16), transparent 30%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(246, 252, 254, 0.92));
+      border: 1px solid rgba(14, 141, 171, 0.1);
+      min-height: 440px;
+    }
+
+    .preview::before {
+      content: "小红书文案预览";
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(14, 141, 171, 0.56);
+    }
+
+    .content-block {
+      white-space: pre-wrap;
+      line-height: 1.8;
+      font-size: 15px;
+      color: var(--ink);
+      padding-top: 16px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (min-width: 760px) {
+      body {
+        padding: 20px 0;
+      }
+
+      .shell {
+        width: min(460px, 100%);
+      }
+
+      .hero,
+      .controls,
+      .output {
+        border-radius: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <span class="hero-badge">Dominican University of California</span>
+      <h1>美国加州多明尼克大学开学典礼</h1>
+      <div class="hero-subcopy">
+        <strong>Begin Here, Lead Beyond</strong>
+        <span>由此启程，向更高处引领</span>
+      </div>
+    </section>
+
+    <section class="layout">
+      <section class="panel output">
+        <div class="action-row">
+          <button class="primary-btn" id="generateBtn">同频未来</button>
+          <button class="secondary-btn" id="copyBtn">复制整篇文案</button>
+          <button class="ghost-btn" id="refreshBtn">换一版灵感</button>
+        </div>
+        <div class="output-head">
+          <div>
+            <h2>文案结果</h2>
+            <p class="section-copy">系统会自动拼接标题、正文和标签，生成适合小红书发布的完整版本。</p>
+          </div>
+          <span class="pill" id="statusPill">默认模板已就绪</span>
+        </div>
+
+        <div class="title-panel">
+          <span class="title-label">标题生成</span>
+          <div class="title-text" id="titleBlock"></div>
+        </div>
+
+        <div class="preview">
+          <div class="content-block" id="contentBlock"></div>
+        </div>
+        <p class="footer-note">建议在正式发布前再补充具体时间、现场照片或视频亮点，转化效果会更好。</p>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const contentBlock = document.getElementById("contentBlock");
+    const titleBlock = document.getElementById("titleBlock");
+    const statusPill = document.getElementById("statusPill");
+
+    async function generateCopy() {
+      statusPill.textContent = "正在调用 API 生成";
+      titleBlock.textContent = "生成中...";
+      contentBlock.textContent = "正在为你生成新的标题和文案，请稍等。";
+
+      try {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ trigger: Date.now() })
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.ok) {
+          const message = [payload.error, payload.detail].filter(Boolean).join("：") || "生成失败";
+          throw new Error(message);
+        }
+
+        titleBlock.textContent = payload.result.title;
+        contentBlock.textContent = payload.result.body + "\n\n" + payload.result.tags;
+        statusPill.textContent = "已生成新版本，可直接复制";
+      } catch (error) {
+        titleBlock.textContent = "暂时无法生成";
+        contentBlock.textContent = "接口调用失败：" + error.message;
+        statusPill.textContent = "API 连接失败";
+      }
+    }
+
+    async function copyContent() {
+      const text = (titleBlock.textContent + "\n\n" + contentBlock.textContent).trim();
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        statusPill.textContent = "文案已复制到剪贴板";
+      } catch (error) {
+        statusPill.textContent = "复制失败，请手动选择文案";
+      }
+    }
+
+    document.getElementById("generateBtn").addEventListener("click", generateCopy);
+    document.getElementById("refreshBtn").addEventListener("click", generateCopy);
+    document.getElementById("copyBtn").addEventListener("click", copyContent);
+
+    generateCopy();
+  </script>
+</body>
+</html>
