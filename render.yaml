@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: cdu-xiaohongshu-generator
+    runtime: python
+    plan: free
+    buildCommand: ""
+    startCommand: python3 server.py
+    envVars:
+      - key: ARK_MODEL
+        value: deepseek-v3-2-251201
